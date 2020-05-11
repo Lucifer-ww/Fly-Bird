@@ -4,40 +4,40 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 /**
- * å°é¸Ÿ
+ * Ğ¡Äñ
  */
 class Bird {
 
-    // å›¾ç‰‡
+    // Í¼Æ¬
     BufferedImage image;
-    // ä½ç½®
+    // Î»ÖÃ
     int x, y;
-    // å®½é«˜
+    // ¿í¸ß
     int width, height;
-    // å¤§å°ï¼ˆç”¨äºç¢°æ’æ£€æµ‹ï¼‰
+    // ´óĞ¡£¨ÓÃÓÚÅö×²¼ì²â£©
     int size;
 
-    // é‡åŠ›åŠ é€Ÿåº¦
+    // ÖØÁ¦¼ÓËÙ¶È
     double g;
-    // ä½ç§»çš„é—´éš”æ—¶é—´
+    // Î»ÒÆµÄ¼ä¸ôÊ±¼ä
     double t;
-    // æœ€åˆä¸ŠæŠ›é€Ÿåº¦
+    // ×î³õÉÏÅ×ËÙ¶È
     double v0;
-    // å½“å‰ä¸ŠæŠ›é€Ÿåº¦
+    // µ±Ç°ÉÏÅ×ËÙ¶È
     double speed;
-    // ç»è¿‡æ—¶é—´tä¹‹åçš„ä½ç§»
+    // ¾­¹ıÊ±¼ätÖ®ºóµÄÎ»ÒÆ
     double s;
-    // å°é¸Ÿçš„å€¾è§’ï¼ˆå¼§åº¦ï¼‰
+    // Ğ¡ÄñµÄÇã½Ç£¨»¡¶È£©
     double alpha;
 
-    // ä¸€ç»„å›¾ç‰‡ï¼Œè®°å½•å°é¸Ÿçš„åŠ¨ç”»å¸§
+    // Ò»×éÍ¼Æ¬£¬¼ÇÂ¼Ğ¡ÄñµÄ¶¯»­Ö¡
     BufferedImage[] images;
-    // åŠ¨ç”»å¸§æ•°ç»„çš„ä¸‹æ ‡
+    // ¶¯»­Ö¡Êı×éµÄÏÂ±ê
     int index;
 
-    // åˆå§‹åŒ–å°é¸Ÿ
+    // ³õÊ¼»¯Ğ¡Äñ
     public Bird() throws Exception {
-        // åˆå§‹åŒ–åŸºæœ¬å‚æ•°
+        // ³õÊ¼»¯»ù±¾²ÎÊı
         image = ImageIO.read(getClass().getResource("/resources/0.png"));
         width = image.getWidth();
         height = image.getHeight();
@@ -45,7 +45,7 @@ class Bird {
         y = 280;
         size = 40;
 
-        // åˆå§‹åŒ–ä½ç§»å‚æ•°
+        // ³õÊ¼»¯Î»ÒÆ²ÎÊı
         g = 4;
         v0 = 20;
         t = 0.25;
@@ -53,7 +53,7 @@ class Bird {
         s = 0;
         alpha = 0;
 
-        // åˆå§‹åŒ–åŠ¨ç”»å¸§å‚æ•°
+        // ³õÊ¼»¯¶¯»­Ö¡²ÎÊı
         images = new BufferedImage[8];
         for (int i = 0; i < 8; i++) {
             images[i] = ImageIO.read(getClass().getResource("/resources/" + i + ".png"));
@@ -61,33 +61,33 @@ class Bird {
         index = 0;
     }
 
-    // é£è¡ŒåŠ¨ä½œï¼ˆå˜åŒ–ä¸€å¸§ï¼‰
+    // ·ÉĞĞ¶¯×÷£¨±ä»¯Ò»Ö¡£©
     public void fly() {
         index++;
         image = images[(index / 12) % 8];
     }
 
-    // ç§»åŠ¨ä¸€æ­¥
+    // ÒÆ¶¯Ò»²½
     public void step() {
         double v0 = speed;
-        // è®¡ç®—ä¸ŠæŠ›è¿åŠ¨ä½ç§»
+        // ¼ÆËãÉÏÅ×ÔË¶¯Î»ÒÆ
         s = v0 * t + g * t * t / 2;
-        // è®¡ç®—é¸Ÿçš„åæ ‡ä½ç½®
+        // ¼ÆËãÄñµÄ×ø±êÎ»ÖÃ
         y = y - (int) s;
-        // è®¡ç®—ä¸‹æ¬¡ç§»åŠ¨é€Ÿåº¦
+        // ¼ÆËãÏÂ´ÎÒÆ¶¯ËÙ¶È
         double v = v0 - g * t;
         speed = v;
-        // è®¡ç®—å€¾è§’ï¼ˆåæ­£åˆ‡å‡½æ•°ï¼‰
+        // ¼ÆËãÇã½Ç£¨·´ÕıÇĞº¯Êı£©
         alpha = Math.atan(s / 8);
     }
 
-    // å‘ä¸Šé£è¡Œ
+    // ÏòÉÏ·ÉĞĞ
     public void flappy() {
-        // é‡ç½®é€Ÿåº¦
+        // ÖØÖÃËÙ¶È
         speed = v0;
     }
 
-    // æ£€æµ‹å°é¸Ÿæ˜¯å¦ç¢°æ’åˆ°åœ°é¢
+    // ¼ì²âĞ¡ÄñÊÇ·ñÅö×²µ½µØÃæ
     public boolean hit(Ground ground) {
         boolean hit = y + size / 2 > ground.y;
         if (hit) {
@@ -97,12 +97,12 @@ class Bird {
         return hit;
     }
 
-    // æ£€æµ‹å°é¸Ÿæ˜¯å¦æ’åˆ°æŸ±å­
+    // ¼ì²âĞ¡ÄñÊÇ·ñ×²µ½Öù×Ó
     public boolean hit(Column column) {
-        // å…ˆæ£€æµ‹æ˜¯å¦åœ¨æŸ±å­çš„èŒƒå›´å†…
+        // ÏÈ¼ì²âÊÇ·ñÔÚÖù×ÓµÄ·¶Î§ÄÚ
         if (x > column.x - column.width / 2 - size / 2
                 && x < column.x + column.width / 2 + size / 2) {
-            // å†æ£€æµ‹æ˜¯å¦åœ¨æŸ±å­çš„ç¼éš™ä¸­
+            // ÔÙ¼ì²âÊÇ·ñÔÚÖù×ÓµÄ·ìÏ¶ÖĞ
             if (y > column.y - column.gap / 2 + size / 2
                     && y < column.y + column.gap / 2 - size / 2) {
                 return false;

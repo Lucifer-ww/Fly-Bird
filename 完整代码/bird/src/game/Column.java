@@ -5,25 +5,25 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * æŸ±å­
+ * Öù×Ó
  */
 class Column {
 
-    // å›¾ç‰‡
+    // Í¼Æ¬
     BufferedImage image;
-    // ä½ç½®
+    // Î»ÖÃ
     int x, y;
-    // å®½é«˜
+    // ¿í¸ß
     int width, height;
-    // æŸ±å­ä¹‹é—´çš„ç¼éš™
+    // Öù×ÓÖ®¼äµÄ·ìÏ¶
     int gap;
-    // æŸ±å­ä¹‹é—´çš„è·ç¦»
+    // Öù×ÓÖ®¼äµÄ¾àÀë
     int distance;
-    // éšæœºæ•°å·¥å…·
+    // Ëæ»úÊı¹¤¾ß
     Random random = new Random();
 
     /**
-     * åˆå§‹åŒ–ç¬¬Nä¸ªæŸ±å­
+     * ³õÊ¼»¯µÚN¸öÖù×Ó
      */
     public Column(int n) throws Exception {
         image = ImageIO.read(getClass().getResource("/resources/column.png"));
@@ -35,7 +35,7 @@ class Column {
         y = random.nextInt(218) + 132;
     }
 
-    // å‘å·¦ç§»åŠ¨ä¸€æ­¥
+    // Ïò×óÒÆ¶¯Ò»²½
     public void step() {
         x--;
         if (x == -width / 2) {

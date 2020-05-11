@@ -4,18 +4,18 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 /**
- * åœ°é¢
+ * µØÃæ
  */
 class Ground {
 
-    // å›¾ç‰‡
+    // Í¼Æ¬
     BufferedImage image;
-    // ä½ç½®
+    // Î»ÖÃ
     int x, y;
-    // å®½é«˜
+    // ¿í¸ß
     int width, height;
 
-    // åˆå§‹åŒ–åœ°é¢
+    // ³õÊ¼»¯µØÃæ
     public Ground() throws Exception {
         image = ImageIO.read(getClass().getResource("/resources/ground.png"));
         width = image.getWidth();
@@ -24,7 +24,7 @@ class Ground {
         y = 500;
     }
 
-    // å‘å·¦ç§»åŠ¨ä¸€æ­¥
+    // Ïò×óÒÆ¶¯Ò»²½
     public void step() {
         x--;
         if (x == -109) {

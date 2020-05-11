@@ -9,89 +9,89 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 /**
- * æ¸¸æˆç•Œé¢
+ * ÓÎÏ·½çÃæ
  */
 public class BirdGame extends JPanel {
 
-    // èƒŒæ™¯å›¾ç‰‡
+    // ±³¾°Í¼Æ¬
     BufferedImage background;
 
-    // å¼€å§‹å›¾ç‰‡
+    // ¿ªÊ¼Í¼Æ¬
     BufferedImage startImage;
-    // ç»“æŸå›¾ç‰‡
+    // ½áÊøÍ¼Æ¬
     BufferedImage gameOverImage;
 
-    // åœ°é¢
+    // µØÃæ
     Ground ground;
-    // æŸ±å­
+    // Öù×Ó
     Column column1, column2;
-    // å°é¸Ÿ
+    // Ğ¡Äñ
     Bird bird;
 
-    // æ¸¸æˆåˆ†æ•°
+    // ÓÎÏ··ÖÊı
     int score;
 
-    // æ¸¸æˆçŠ¶æ€
+    // ÓÎÏ·×´Ì¬
     int state;
-    // çŠ¶æ€å¸¸é‡
-    public static final int START = 0; //å¼€å§‹
-    public static final int RUNNING = 1; //è¿è¡Œ
-    public static final int GAME_OVER = 2; //ç»“æŸ
+    // ×´Ì¬³£Á¿
+    public static final int START = 0; //¿ªÊ¼
+    public static final int RUNNING = 1; //ÔËĞĞ
+    public static final int GAME_OVER = 2; //½áÊø
 
     /**
-     * åˆå§‹åŒ–æ¸¸æˆ
+     * ³õÊ¼»¯ÓÎÏ·
      */
     public BirdGame() throws Exception {
-        // åˆå§‹åŒ–èƒŒæ™¯å›¾ç‰‡
+        // ³õÊ¼»¯±³¾°Í¼Æ¬
         background = ImageIO.read(getClass().getResource("/resources/bg.png"));
 
-        // åˆå§‹åŒ–å¼€å§‹ã€ç»“æŸå›¾ç‰‡
+        // ³õÊ¼»¯¿ªÊ¼¡¢½áÊøÍ¼Æ¬
         startImage = ImageIO.read(getClass().getResource("/resources/start.png"));
         gameOverImage = ImageIO.read(getClass().getResource("/resources/gameover.png"));
 
-        // åˆå§‹åŒ–åœ°é¢ã€æŸ±å­ã€å°é¸Ÿ
+        // ³õÊ¼»¯µØÃæ¡¢Öù×Ó¡¢Ğ¡Äñ
         ground = new Ground();
         column1 = new Column(1);
         column2 = new Column(2);
         bird = new Bird();
 
-        // åˆå§‹åŒ–åˆ†æ•°
+        // ³õÊ¼»¯·ÖÊı
         score = 0;
 
-        // åˆå§‹åŒ–çŠ¶æ€
+        // ³õÊ¼»¯×´Ì¬
         state = START;
     }
 
     /**
-     * ç»˜åˆ¶ç•Œé¢
+     * »æÖÆ½çÃæ
      */
     public void paint(Graphics g) {
-        // ç»˜åˆ¶èƒŒæ™¯
+        // »æÖÆ±³¾°
         g.drawImage(background, 0, 0, null);
 
-        // ç»˜åˆ¶åœ°é¢
+        // »æÖÆµØÃæ
         g.drawImage(ground.image, ground.x, ground.y, null);
 
-        // ç»˜åˆ¶æŸ±å­
+        // »æÖÆÖù×Ó
         g.drawImage(column1.image, column1.x - column1.width / 2, column1.y
                 - column1.height / 2, null);
         g.drawImage(column2.image, column2.x - column2.width / 2, column2.y
                 - column2.height / 2, null);
 
-        // ç»˜åˆ¶å°é¸Ÿï¼ˆæ—‹è½¬åæ ‡ç³»ï¼‰
+        // »æÖÆĞ¡Äñ£¨Ğı×ª×ø±êÏµ£©
         Graphics2D g2 = (Graphics2D) g;
         g2.rotate(-bird.alpha, bird.x, bird.y);
         g.drawImage(bird.image, bird.x - bird.width / 2, bird.y - bird.height / 2, null);
         g2.rotate(bird.alpha, bird.x, bird.y);
 
-        // ç»˜åˆ¶åˆ†æ•°
+        // »æÖÆ·ÖÊı
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 40);
         g.setFont(f);
         g.drawString("" + score, 40, 60);
         g.setColor(Color.WHITE);
         g.drawString("" + score, 40 - 3, 60 - 3);
 
-        // ç»˜åˆ¶å¼€å§‹ä¸ç»“æŸç•Œé¢
+        // »æÖÆ¿ªÊ¼Óë½áÊø½çÃæ
         switch (state) {
             case START:
                 g.drawImage(startImage, 0, 0, null);
@@ -102,24 +102,24 @@ public class BirdGame extends JPanel {
         }
     }
 
-    // å¼€å§‹æ¸¸æˆ
+    // ¿ªÊ¼ÓÎÏ·
     public void action() throws Exception {
-        // é¼ æ ‡ç›‘å¬å™¨
+        // Êó±ê¼àÌıÆ÷
         MouseListener l = new MouseAdapter() {
-            // é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶
+            // Êó±ê°´ÏÂÊÂ¼ş
             public void mousePressed(MouseEvent e) {
                 try {
                     switch (state) {
                         case START:
-                            // åœ¨å¼€å§‹çŠ¶æ€ï¼ŒæŒ‰ä¸‹é¼ æ ‡åˆ™è½¬ä¸ºè¿è¡ŒçŠ¶æ€ã€‚
+                            // ÔÚ¿ªÊ¼×´Ì¬£¬°´ÏÂÊó±êÔò×ªÎªÔËĞĞ×´Ì¬¡£
                             state = RUNNING;
                             break;
                         case RUNNING:
-                            // åœ¨è¿è¡ŒçŠ¶æ€ï¼ŒæŒ‰ä¸‹é¼ æ ‡åˆ™å°é¸Ÿå‘ä¸Šé£è¡Œã€‚
+                            // ÔÚÔËĞĞ×´Ì¬£¬°´ÏÂÊó±êÔòĞ¡ÄñÏòÉÏ·ÉĞĞ¡£
                             bird.flappy();
                             break;
                         case GAME_OVER:
-                            // åœ¨ç»“æŸçŠ¶æ€ï¼ŒæŒ‰ä¸‹é¼ æ ‡åˆ™é‡ç½®æ•°æ®ï¼Œå†æ¬¡è½¬ä¸ºå¼€å§‹æ€ã€‚
+                            // ÔÚ½áÊø×´Ì¬£¬°´ÏÂÊó±êÔòÖØÖÃÊı¾İ£¬ÔÙ´Î×ªÎª¿ªÊ¼Ì¬¡£
                             column1 = new Column(1);
                             column2 = new Column(2);
                             bird = new Bird();
@@ -133,47 +133,47 @@ public class BirdGame extends JPanel {
             }
         };
 
-        // å°†ç›‘å¬å™¨æ·»åŠ åˆ°å½“å‰çš„é¢æ¿ä¸Š
+        // ½«¼àÌıÆ÷Ìí¼Óµ½µ±Ç°µÄÃæ°åÉÏ
         addMouseListener(l);
 
-        // ä¸æ–­çš„ç§»åŠ¨ä¸é‡ç»˜
+        // ²»¶ÏµÄÒÆ¶¯ÓëÖØ»æ
         while (true) {
             switch (state) {
                 case START:
-                    // å°é¸Ÿåšå‡ºé£è¡ŒåŠ¨ä½œ
+                    // Ğ¡Äñ×ö³ö·ÉĞĞ¶¯×÷
                     bird.fly();
-                    // åœ°é¢å‘å·¦ç§»åŠ¨ä¸€æ­¥
+                    // µØÃæÏò×óÒÆ¶¯Ò»²½
                     ground.step();
                     break;
                 case RUNNING:
-                    // åœ°é¢å‘å·¦ç§»åŠ¨ä¸€æ­¥
+                    // µØÃæÏò×óÒÆ¶¯Ò»²½
                     ground.step();
-                    // æŸ±å­å‘å·¦ç§»åŠ¨ä¸€æ­¥
+                    // Öù×ÓÏò×óÒÆ¶¯Ò»²½
                     column1.step();
                     column2.step();
-                    // å°é¸Ÿåšå‡ºé£è¡ŒåŠ¨ä½œ
+                    // Ğ¡Äñ×ö³ö·ÉĞĞ¶¯×÷
                     bird.fly();
-                    // å°é¸Ÿä¸Šä¸‹ç§»åŠ¨ä¸€æ­¥
+                    // Ğ¡ÄñÉÏÏÂÒÆ¶¯Ò»²½
                     bird.step();
-                    // è®¡ç®—åˆ†æ•°
+                    // ¼ÆËã·ÖÊı
                     if (bird.x == column1.x || bird.x == column2.x) {
                         score++;
                     }
-                    // æ£€æµ‹æ˜¯å¦å‘ç”Ÿç¢°æ’
+                    // ¼ì²âÊÇ·ñ·¢ÉúÅö×²
                     if (bird.hit(ground) || bird.hit(column1) || bird.hit(column2)) {
                         state = GAME_OVER;
                     }
                     break;
             }
-            // é‡æ–°ç»˜åˆ¶ç•Œé¢
+            // ÖØĞÂ»æÖÆ½çÃæ
             repaint();
-            // ä¼‘çœ  1000/60 æ¯«ç§’
+            // ĞİÃß 1000/60 ºÁÃë
             Thread.sleep(1000 / 60);
         }
     }
 
     /**
-     * å¯åŠ¨æ–¹æ³•
+     * Æô¶¯·½·¨
      */
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame();
